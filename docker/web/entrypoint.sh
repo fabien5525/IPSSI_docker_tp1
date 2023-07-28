@@ -3,9 +3,6 @@
 rm -Rf /var/www/html/*;
 echo "<html><body><h1>$NAME</h1><p>Mon super site</p></body></html>" > /var/www/html/index.html;
 
-
-
-#if $NAME = "web2", then initiate a crontab that rsync /var/www/html/ to web1:/var/www/html/ every 5 min;
 if [ "$NAME" = "web2" ]; then
     ssh-keyscan web1 >> /root/.ssh/known_hosts;
     echo "*/5 * * * * rsync -avz -e ssh /var/www/html/* root@web1:/var/www/html/." > /etc/cron.d/rsync;
